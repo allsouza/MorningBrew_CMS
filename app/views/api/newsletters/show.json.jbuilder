@@ -1,0 +1,1 @@
+json.partial! 'api/newsletters/newsletter', newsletter: @newsletter
