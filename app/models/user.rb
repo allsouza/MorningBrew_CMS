@@ -19,6 +19,11 @@ class User < ApplicationRecord
 
     after_initialize :ensure_session_token
 
+    has_many :stories,
+        foreign_key: :author_id,
+        class_name: :Story,
+        dependent: :destroy
+
     attr_reader :password
 
     def self.generate_session_token
