@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import '../../../../app/assets/stylesheets/components/story_template.css';
 import 'quill/dist/quill.snow.css';
+import { useHistory } from 'react-router-dom';
 
 function StoryView({story}) {
+    const history = useHistory();
+
     useEffect(() => {
         document.querySelector('#story-html').innerHTML=story.html
     }, [])
@@ -19,7 +22,7 @@ function StoryView({story}) {
                     <td className="tag-outer">
                         <table align="left" cellpadding="0" cellspacing="0" border="0">
                         <tr>
-                            <td className="tag-inner" >STORY TAG</td>
+                            <td className="tag-inner" >{story.tag}</td>
                         </tr>
                         </table>
                     </td>
@@ -47,6 +50,7 @@ function StoryView({story}) {
                 </td>
             </tr>
             </table>
+            <button onClick={() => history.goBack()}>Back</button>
         </div>
     )
 }

@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 class Story < ApplicationRecord
-    validates :title, :html, :author_id, presence: true
+    validates :title, :html, :author_id, :tag, presence: true
 
     belongs_to :author,
         foreign_key: :author_id,

@@ -8,7 +8,10 @@ function StoryIndexItem({story, author, destroy, currentUser}) {
 
     return(
         <li>
-            <h1 onClick={() => history.push(`/app/stories/${story.id}/template`)}>{story.title}</h1>
+            <div className="first-line">
+                <h1 onClick={() => history.push(`/app/stories/${story.id}/template`)}>{story.title}</h1>
+                <h3>{story.tag}</h3>
+            </div>
             <p>by {`${author.firstName} ${author.lastName}`}</p>
             
             { story.author_id === currentUser ? <div className="options">

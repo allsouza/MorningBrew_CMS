@@ -11,18 +11,27 @@ function StoryEditor({story, action, fetchStory}) {
     
     const [title, setTitle] = useState(story.title)
     const [html, sethtml] = useState(story.html)
+    const [tag, setTag] = useState(story.tag)
     const history = useHistory();
 
     function save() {
         story.title = title;
         story.html = html;
+        story.tag = tag;
+        
         action(story)
         history.push('/app/stories')
     }
 
     return(
         <div className="story-editor">
+            <label>Title
             <input type="text" value={title} onChange={e => setTitle(e.target.value)}/>
+            </label>
+
+            <label>Tag
+            <input type="text" value={tag} onChange={e => setTag(e.target.value)}/>
+            </label>
             <Editor html={html} sethtml={sethtml}/>
             <div className="buttons">
                 <button onClick={history.goBack}>Cancel</button>
@@ -34,7 +43,7 @@ function StoryEditor({story, action, fetchStory}) {
 
 const newSTP = state => {
     return({
-        story: {title: "", html: ""}
+        story: {title: "", html: "", tag: ""}
     })
 }
 
