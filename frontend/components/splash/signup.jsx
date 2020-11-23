@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { clearErrors } from '../../actions/error_actions';
@@ -19,6 +19,12 @@ function SignUp({signUp, errors, clearErrors}) {
         })
     }
 
+    useEffect(() => {
+        return () => {
+            clearErrors()
+        }
+    }, [])
+
     return(
         <div className='signup'>
             <form onSubmit={trySignUp}>
@@ -27,7 +33,6 @@ function SignUp({signUp, errors, clearErrors}) {
                             value={username}
                             onChange={e => {
                                 setUsername(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>
@@ -37,7 +42,6 @@ function SignUp({signUp, errors, clearErrors}) {
                             value={firstName}
                             onChange={e => {
                                 setFirstName(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>
@@ -47,7 +51,6 @@ function SignUp({signUp, errors, clearErrors}) {
                             value={lastName}
                             onChange={e => {
                                 setLastName(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>
@@ -57,7 +60,6 @@ function SignUp({signUp, errors, clearErrors}) {
                             value={password}
                             onChange={e => {
                                 setPassword(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>
@@ -66,7 +68,7 @@ function SignUp({signUp, errors, clearErrors}) {
                     {errors.length > 0 ? <ul> {errors.map(error => <li key={error}>{error}</li> )} </ul> : null }
                 </div>
 
-                <input type="submit" value="Login"/>
+                <input type="submit" value="Sign Up"/>
             </form>
             <Link to='/'>Already have an account</Link>
         </div>

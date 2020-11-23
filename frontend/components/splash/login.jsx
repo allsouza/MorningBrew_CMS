@@ -12,6 +12,12 @@ function Login({login, errors, clearErrors}) {
         login({username, password})
     }
 
+    useEffect(() => {
+        return () => {
+            clearErrors()
+        }
+    }, [])
+    
     return(
         <div className='login'>
             <form onSubmit={tryLogin}>
@@ -20,7 +26,6 @@ function Login({login, errors, clearErrors}) {
                             value={username}
                             onChange={e => {
                                 setUsername(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>
@@ -30,7 +35,6 @@ function Login({login, errors, clearErrors}) {
                             value={password}
                             onChange={e => {
                                 setPassword(e.target.value)
-                                clearErrors()
                             }}
                     />
                 </label>

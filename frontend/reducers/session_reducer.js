@@ -4,9 +4,9 @@ export default function sessionReducer(state={}, action){
     Object.freeze(state);
     switch (action.type) {
         case RECEIVE_CURRENT_USER:
-            return {user: action.user};
+            return {id: action.user.id};
         case LOGOUT_CURRENT_USER:
-            return {user: null};
+            return {id: null};
         default:
             return state;  
     }
