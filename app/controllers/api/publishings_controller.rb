@@ -10,6 +10,7 @@ class Api::PublishingsController < ApplicationController
 
     def destroy
         @publishing = Publishing.find_by(story_id: params[:story_id], newsletter_id: params[:newsletter_id])
+        debugger
         if @publishing
             @publishing.destroy
             render json: {success: "publishing destroyed"}, status: 200

@@ -9,7 +9,7 @@ class Api::StoriesController < ApplicationController
 
     def create
         @story = Story.new(story_params)
-        @story.author_id = 1 #current_user.id
+        @story.author_id = current_user.id
         if @story.save
             render :show
         else
@@ -28,7 +28,12 @@ class Api::StoriesController < ApplicationController
 
     def destroy
         @story = Story.find(params[:id])
-        @story.destroy
+        if @story
+            @story.destroy
+            render json: {success: "story destroyed"}, status: 200
+        else
+            render json: {error: "story not found"}, status: 422
+        end
     end
 
     private

@@ -9,7 +9,7 @@ class Api::NewslettersController < ApplicationController
 
     def create
         @newsletter = Newsletter.new(newsletter_params)
-        @newsletter.author_id = 1 # current_user.id
+        @newsletter.author_id = current_user.id
         if @newsletter.save
             render :show
         else
@@ -28,7 +28,12 @@ class Api::NewslettersController < ApplicationController
 
     def destroy
         @newsletter = Newsletter.find(params[:id])
-        @newsletter.destroy
+        if @newsletter
+            @newsletter.destroy
+            render json: {success: "newsletter destroyed"}, status: 200
+        else
+            render json: {error: "newsletter not found"}, status: 422
+        end
     end
 
     private
