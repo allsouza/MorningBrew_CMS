@@ -2,16 +2,23 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import StoryIndexItem from './story_index_item';
 import { fetchStories } from '../../../actions/story_actions';
+import { useHistory } from 'react-router-dom';
 
 function StoriesIndex({stories, fetchStories}) {
+    const history = useHistory();
 
     useEffect(() => {
         fetchStories()
     }, [])
 
+    function newNote() {
+        history.push('/app/stories/new_story')
+    }
+
     return(
         <div className='stories-index'>
         <h1>Stories Index</h1>
+        <button onClick={newNote}>Create new Story</button>
             <ul>
                 {stories.map(story => {
                     return <StoryIndexItem story={story} key={story.id}/>

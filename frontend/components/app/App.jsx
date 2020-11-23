@@ -7,6 +7,8 @@ import { ProtectedRoute } from '../../util/route_util';
 import Header from './header/header';
 import StoriesIndex from './stories/stories_index';
 import NewsletterIndex from './newsletters/newsletters_index';
+import { EditStory, NewStory } from './stories/story_editor';
+import StoryView from './stories/story_view';
 
 function App({getUsers}) {
 
@@ -18,7 +20,10 @@ function App({getUsers}) {
         <div className='app'>
             <Header />
             <Switch>
-                <ProtectedRoute path='/app/stories' component={StoriesIndex} />
+                <ProtectedRoute exact path='/app/stories' component={StoriesIndex} />
+                <ProtectedRoute exact path='/app/stories/new_story' component={NewStory} />
+                <ProtectedRoute exact path='/app/stories/:story_id' component={EditStory} />
+                <ProtectedRoute exact path='/app/stories/:story_id/template' component={StoryView} />
                 <ProtectedRoute path='/app/newsletters' component={NewsletterIndex} />
             </Switch>
         </div>

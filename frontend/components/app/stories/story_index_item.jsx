@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { destroyStory } from '../../../actions/story_actions';
 
-function StoryIndexItem({story, author}) {
+function StoryIndexItem({story, author, destroy, currentUser}) {
+    const history = useHistory();
+
     return(
         <li>
-            <h1>{story.title}</h1>
+            <h1 onClick={() => history.push(`/app/stories/${story.id}/template`)}>{story.title}</h1>
             <p>by {`${author.firstName} ${author.lastName}`}</p>
+            
+            { story.author_id === currentUser ? <div className="options">
+                <button onClick={() => history.push(`/app/stories/${story.id}`)}>Edit</button>
+                <button onClick={() => destroy(story.id)}>Delete</button>
+            </div> : null }
         </li>
     )
 }
@@ -13,8 +22,13 @@ function StoryIndexItem({story, author}) {
 const mSTP = (state, ownProps) => {
     return({
         author: state.entities.users[ownProps.story.author_id],
-        story: ownProps.story
+        story: ownProps.story,
+        currentUser: state.session.id
     })
 }
 
-export default connect(mSTP)(StoryIndexItem);
+const mDTP = dispatch => ({
+    destroy: (id) => dispatch(destroyStory(id))
+})
+
+export default connect(mSTP, mDTP)(StoryIndexItem);
