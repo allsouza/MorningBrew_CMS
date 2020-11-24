@@ -8,9 +8,14 @@ function NewsletterIndexItem({newsletter, author, destroy}) {
 
     return(
         <li>
-            <h1 onClick={() => history.push(`/app/newsletters/${newsletter.id}`)}>{new Date(newsletter.date).toDateString()}</h1>
+            <h1>{newsletter.date}</h1>
             <p>by {`${author.firstName} ${author.lastName}`}</p>
-            <button onClick={() => destroy(newsletter.id)}>Delete</button>
+
+            <div className='buttons'>
+                <button onClick={() => history.push(`/app/newsletters/${newsletter.id}/preview`)}>Preview</button>
+                <button onClick={() => history.push(`/app/newsletters/${newsletter.id}`)}>Edit</button>
+                <button onClick={() => destroy(newsletter.id)}>Delete</button>
+            </div>
         </li>
     )
 }

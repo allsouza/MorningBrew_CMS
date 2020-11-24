@@ -11,6 +11,7 @@ import NewsletterIndex from './newsletters/newsletters_index';
 import { EditStory, NewStory } from './stories/story_editor';
 import StoryView from './stories/story_view';
 import NewsletterEditor from './newsletters/newsletter_editor';
+import NewsletterPreview from './newsletters/newsletter_preview';
 
 function App({getUsers, getNewsletters, getStories}) {
 
@@ -27,9 +28,10 @@ function App({getUsers, getNewsletters, getStories}) {
                 <Route exact path='/app/stories' component={StoriesIndex} />
                 <Route exact path='/app/stories/new' component={NewStory} />
                 <Route exact path='/app/stories/:story_id' component={EditStory} />
-                <Route exact path='/app/stories/:story_id/template' component={StoryView} />
+                <Route exact path='/app/stories/:story_id/preview' component={StoryView} />
                 <Route exact path='/app/newsletters' component={NewsletterIndex} />
                 <Route exact path='/app/newsletters/:newsletter_id' component={NewsletterEditor} />
+                <Route exact path='/app/newsletters/:newsletter_id/preview' component={NewsletterPreview} />
             </Switch>
         </div>
     )

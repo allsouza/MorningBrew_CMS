@@ -9,7 +9,7 @@ function StoryIndexItem({story, author, destroy, currentUser}) {
     return(
         <li>
             <div className="first-line">
-                <h1 onClick={() => history.push(`/app/stories/${story.id}/template`)}>{story.title}</h1>
+                <h1 onClick={() => history.push(`/app/stories/${story.id}/preview`)}>{story.title}</h1>
                 <h3>{story.tag}</h3>
             </div>
             <p>by {`${author.firstName} ${author.lastName}`}</p>

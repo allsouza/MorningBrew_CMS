@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { updateNewsletter } from '../../../actions/newsletter_actions';
 import { createPublishing, removePublishing } from '../../../util/newsletters_api_util';
-import StoryView from '../stories/story_view';
 import StoriesOrder from './stories_order';
+import StoryView from '../stories/story_view';
 
 function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing}) {
     const [date, setDate] = useState(newsletter.date)
-    const [html, sethtml] = useState(newsletter.html)
     const [selectedStories, setSelectedStories] = useState(new Set(newsletter.story_order))
     const [storyList, setStoryList] = useState(Array.from(selectedStories))
     const history = useHistory();
@@ -22,10 +21,10 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
     }
 
     function save() {
-        sethtml(document.querySelector('.newsletter-preview').innerHTML)
         updatePublishings()
         newsletter.date = date;
-        newsletter.html = html;
+        debugger
+        newsletter.html = document.querySelector('.newsletter-preview').innerHTML;
         newsletter.story_order = storyList.join(',');
         action(newsletter)
         history.push('/app/newsletters')
