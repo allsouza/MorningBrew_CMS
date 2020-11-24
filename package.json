@@ -11,6 +11,7 @@
     "react-dom": "^16.13.1",
     "react-quilljs": "^1.2.12",
     "react-redux": "^7.2.1",
+    "react-reorder": "^3.0.0-alpha.7",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",

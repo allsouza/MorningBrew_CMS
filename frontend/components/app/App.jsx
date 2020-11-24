@@ -9,6 +9,8 @@ import StoriesIndex from './stories/stories_index';
 import NewsletterIndex from './newsletters/newsletters_index';
 import { EditStory, NewStory } from './stories/story_editor';
 import StoryView from './stories/story_view';
+import StoriesOrder from './newsletters/stories_order';
+import { NewNewsletter } from './newsletters/newsletter_editor';
 
 function App({getUsers}) {
 
@@ -21,10 +23,11 @@ function App({getUsers}) {
             <Header />
             <Switch>
                 <ProtectedRoute exact path='/app/stories' component={StoriesIndex} />
-                <ProtectedRoute exact path='/app/stories/new_story' component={NewStory} />
+                <ProtectedRoute exact path='/app/stories/new' component={NewStory} />
                 <ProtectedRoute exact path='/app/stories/:story_id' component={EditStory} />
                 <ProtectedRoute exact path='/app/stories/:story_id/template' component={StoryView} />
-                <ProtectedRoute path='/app/newsletters' component={NewsletterIndex} />
+                <ProtectedRoute exact path='/app/newsletters' component={NewsletterIndex} />
+                <ProtectedRoute exact path='/app/newsletters/new' component={NewNewsletter} />
             </Switch>
         </div>
     )

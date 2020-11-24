@@ -12,7 +12,7 @@ function StoriesIndex({stories, fetchStories}) {
     }, [])
 
     function newNote() {
-        history.push('/app/stories/new_story')
+        history.push('/app/stories/new')
     }
 
     return(
