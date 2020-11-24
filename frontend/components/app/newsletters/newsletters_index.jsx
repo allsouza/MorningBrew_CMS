@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchNewsletters } from '../../../actions/newsletter_actions';
+import { fetchNewsletters, createNewsletter } from '../../../actions/newsletter_actions';
+// import { createNewsletter } from '../../../util/newsletters_api_util';
 import NewsletterIndexItem from './newsletter_index_item';
 
 
-function NewsletterIndex({newsletters, getNewsletters}) {
+function NewsletterIndex({newsletters, getNewsletters, createNewsletter}) {
     const history = useHistory();
 
     useEffect(() => {
@@ -13,7 +14,11 @@ function NewsletterIndex({newsletters, getNewsletters}) {
     }, [])
 
     function create() {
-        history.push('/app/newsletters/new')
+        const date = new Date(Date.now())
+        const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+        createNewsletter({date: dateString, html: "new"})
+            .then( payload => {
+                history.push(`/app/newsletters/${payload.newsletter.id}`)})
     }
 
     return(
@@ -34,7 +39,8 @@ const mSTP = state => ({
 })
 
 const mDTP = dispatch => ({
-    getNewsletters: () => dispatch(fetchNewsletters())
+    getNewsletters: () => dispatch(fetchNewsletters()),
+    createNewsletter: newsletter => dispatch(createNewsletter(newsletter))
 })
 
 export default connect(mSTP, mDTP)(NewsletterIndex)

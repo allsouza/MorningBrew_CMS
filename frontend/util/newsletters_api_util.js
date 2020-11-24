@@ -32,3 +32,19 @@ export const deleteNewsletter = newsletterId => {
         method: "DELETE"
     })
 }
+
+export const createPublishing = (story_id, newsletter_id) => {
+    return $.ajax({
+        url:`/api/publishing`,
+        method: "POST",
+        data: {publishing: {story_id, newsletter_id}}
+    })
+}
+
+export const removePublishing = (story_id, newsletter_id) => {
+    return $.ajax({
+        url:`/api/publishing`,
+        method: "DELETE",
+        data: {story_id, newsletter_id}
+    })
+}
