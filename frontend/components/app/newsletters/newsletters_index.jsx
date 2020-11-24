@@ -1,17 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { fetchNewsletters, createNewsletter } from '../../../actions/newsletter_actions';
-// import { createNewsletter } from '../../../util/newsletters_api_util';
+import { createNewsletter } from '../../../actions/newsletter_actions';
 import NewsletterIndexItem from './newsletter_index_item';
 
 
-function NewsletterIndex({newsletters, getNewsletters, createNewsletter}) {
+function NewsletterIndex({newsletters, createNewsletter}) {
     const history = useHistory();
-
-    useEffect(() => {
-        getNewsletters()
-    }, [])
 
     function create() {
         const date = new Date(Date.now())
@@ -39,7 +34,6 @@ const mSTP = state => ({
 })
 
 const mDTP = dispatch => ({
-    getNewsletters: () => dispatch(fetchNewsletters()),
     createNewsletter: newsletter => dispatch(createNewsletter(newsletter))
 })
 

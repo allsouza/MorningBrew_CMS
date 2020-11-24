@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { connect, Provider } from 'react-redux'
 import { updateStory, createStory, fetchStory } from '../../../actions/story_actions'
+import ReactDOMServer from 'react-dom/server';
 import Editor from '../editor/quill';
+import Formater from './story_formater';
+const juice = require('juice');
 
 function StoryEditor({story, action, fetchStory}) {
     if(typeof story === 'number') {
@@ -10,15 +13,17 @@ function StoryEditor({story, action, fetchStory}) {
     }
     
     const [title, setTitle] = useState(story.title)
-    const [html, sethtml] = useState(story.html)
+    const [body, setBody] = useState(story.body)
     const [tag, setTag] = useState(story.tag)
+    const [wordCount, setWordCount] = useState(0)
     const history = useHistory();
+
 
     function save() {
         story.title = title;
-        story.html = html;
+        story.body = body;
         story.tag = tag;
-        
+        story.html = ReactDOMServer.renderToString(<Formater story={{tag, title, body}} type="editor" />)
         action(story)
         history.push('/app/stories')
     }
@@ -32,7 +37,10 @@ function StoryEditor({story, action, fetchStory}) {
             <label>Tag
             <input type="text" value={tag} onChange={e => setTag(e.target.value)}/>
             </label>
-            <Editor html={html} sethtml={sethtml}/>
+            <Editor body={body} setBody={setBody} setWordCount={setWordCount}/>
+            <div className="footer">
+                {wordCount > 0 ? <span>{`${wordCount} words and counting`}</span> : null}
+            </div>
             <div className="buttons">
                 <button onClick={history.goBack}>Cancel</button>
                 <button onClick={save}>Save</button>
@@ -43,7 +51,7 @@ function StoryEditor({story, action, fetchStory}) {
 
 const newSTP = state => {
     return({
-        story: {title: "", html: "", tag: ""}
+        story: {title: "", html: "", tag: "", body: ""}
     })
 }
 

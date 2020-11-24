@@ -5,7 +5,6 @@ export default function sessionErrorsReducer(state=[], action){
     Object.freeze(state);
     switch (action.type) {
         case RECEIVE_NEWSLETTER_ERRORS:
-            debugger
             return action.errors.responseJSON
         case RECEIVE_NEWSLETTER, RECEIVE_ALL_NEWSLETTERS, CLEAR_ERRORS:
             return [];

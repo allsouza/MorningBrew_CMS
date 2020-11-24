@@ -11,6 +11,7 @@ class Api::StoriesController < ApplicationController
         @story = Story.new(story_params)
         @story.author_id = current_user.id
         if @story.save
+            @story.createAPI
             render :show
         else
             render json: @story.errors.full_messages, status: 422
@@ -20,6 +21,7 @@ class Api::StoriesController < ApplicationController
     def update
         @story = Story.find(params[:id])
         if @story.update(story_params)
+            @story.updateAPI
             render :show
         else
             render json: @story.errors.full_messages, status: 422
@@ -30,6 +32,7 @@ class Api::StoriesController < ApplicationController
         @story = Story.find(params[:id])
         if @story
             @story.destroy
+            @story.deleteAPI
             render json: {success: "story destroyed"}, status: 200
         else
             render json: {error: "story not found"}, status: 422
@@ -38,6 +41,6 @@ class Api::StoriesController < ApplicationController
 
     private
     def story_params
-        params.require(:story).permit(:title, :html, :tag)
+        params.require(:story).permit(:title, :html, :tag, :body)
     end
 end

@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import 'quill/dist/quill.snow.css';
 import { useQuill } from 'react-quilljs';
 
-export default ({html, sethtml}) => {
+export default ({body, setBody,setWordCount}) => {
     const { quill, quillRef } = useQuill();
 
     useEffect(() => {
         if (quill) {
-            quill.clipboard.dangerouslyPasteHTML(html)
+            quill.clipboard.dangerouslyPasteHTML(body)
             quill.on('text-change', () => {
-                sethtml(quill.container.children[0].innerHTML)
+                setBody(quill.container.children[0].innerHTML)
+                setWordCount(quill.container.children[0].innerText.split(' ').filter(word => word !== "").length)
             });
+            setWordCount(quill.container.children[0].innerText.split(' ').filter(word => word !== "").length)
         }
     }, [quill]);
  

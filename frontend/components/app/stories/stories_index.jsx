@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import StoryIndexItem from './story_index_item';
-import { fetchStories } from '../../../actions/story_actions';
 import { useHistory } from 'react-router-dom';
 
-function StoriesIndex({stories, fetchStories}) {
+function StoriesIndex({stories}) {
     const history = useHistory();
-
-    useEffect(() => {
-        fetchStories()
-    }, [])
 
     function newStory() {
         history.push('/app/stories/new')
@@ -35,7 +30,7 @@ const mSTP = state => {
 }
 
 const mDTP = dispatch => ({
-    fetchStories: () => dispatch(fetchStories())
+
 })
 
 export default connect(mSTP, mDTP)(StoriesIndex);

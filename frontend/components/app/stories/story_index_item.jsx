@@ -9,15 +9,17 @@ function StoryIndexItem({story, author, destroy, currentUser}) {
     return(
         <li>
             <div className="first-line">
-                <h1 onClick={() => history.push(`/app/stories/${story.id}/preview`)}>{story.title}</h1>
+                <h1>{story.title}</h1>
                 <h3>{story.tag}</h3>
             </div>
             <p>by {`${author.firstName} ${author.lastName}`}</p>
-            
-            { story.author_id === currentUser ? <div className="options">
-                <button onClick={() => history.push(`/app/stories/${story.id}`)}>Edit</button>
-                <button onClick={() => destroy(story.id)}>Delete</button>
-            </div> : null }
+            <div className='buttons'>
+                <button onClick={() => history.push(`/app/stories/${story.id}/preview`)}>Preview</button>
+                { story.author_id === currentUser ? <div className="options">
+                    <button onClick={() => history.push(`/app/stories/${story.id}`)}>Edit</button>
+                    <button onClick={() => destroy(story.id)}>Delete</button>
+                </div> : null }
+            </div>
         </li>
     )
 }

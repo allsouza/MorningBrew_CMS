@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_161604) do
+ActiveRecord::Schema.define(version: 2020_11_24_223343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2020_11_24_161604) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "story_order"
+    t.string "lyra_key"
     t.index ["author_id"], name: "index_newsletters_on_author_id"
+    t.index ["lyra_key"], name: "index_newsletters_on_lyra_key"
   end
 
   create_table "publishings", force: :cascade do |t|
@@ -36,12 +38,15 @@ ActiveRecord::Schema.define(version: 2020_11_24_161604) do
 
   create_table "stories", force: :cascade do |t|
     t.string "title", null: false
-    t.text "html", null: false
+    t.text "html"
     t.integer "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "tag"
+    t.string "lyra_key"
+    t.text "body"
     t.index ["author_id"], name: "index_stories_on_author_id"
+    t.index ["lyra_key"], name: "index_stories_on_lyra_key"
   end
 
   create_table "users", force: :cascade do |t|

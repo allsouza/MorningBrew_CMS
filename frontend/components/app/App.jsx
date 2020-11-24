@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import { getUsers, logout } from '../../actions/user_actions';
 import { fetchStories } from '../../actions/story_actions';
 import { fetchNewsletters } from '../../actions/newsletter_actions';
-import { ProtectedRoute } from '../../util/route_util';
 import Header from './header/header';
 import StoriesIndex from './stories/stories_index';
 import NewsletterIndex from './newsletters/newsletters_index';
@@ -14,17 +13,22 @@ import NewsletterEditor from './newsletters/newsletter_editor';
 import NewsletterPreview from './newsletters/newsletter_preview';
 
 function App({getUsers, getNewsletters, getStories}) {
+    const [ready, setReady] = useState(false)
 
     useEffect(() => {
-        getUsers()
-        getStories()
-        getNewsletters()
+        async function getData() {
+            await getUsers()
+            await getStories()
+            await getNewsletters()
+            setReady(true)
+        }
+        getData()
     }, [])
 
     return(
         <div className='app'>
             <Header />
-            <Switch>
+            {ready ? <Switch>
                 <Route exact path='/app/stories' component={StoriesIndex} />
                 <Route exact path='/app/stories/new' component={NewStory} />
                 <Route exact path='/app/stories/:story_id' component={EditStory} />
@@ -32,7 +36,7 @@ function App({getUsers, getNewsletters, getStories}) {
                 <Route exact path='/app/newsletters' component={NewsletterIndex} />
                 <Route exact path='/app/newsletters/:newsletter_id' component={NewsletterEditor} />
                 <Route exact path='/app/newsletters/:newsletter_id/preview' component={NewsletterPreview} />
-            </Switch>
+            </Switch> :null }
         </div>
     )
 }

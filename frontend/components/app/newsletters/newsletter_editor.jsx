@@ -23,7 +23,6 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
     function save() {
         updatePublishings()
         newsletter.date = date;
-        debugger
         newsletter.html = document.querySelector('.newsletter-preview').innerHTML;
         newsletter.story_order = storyList.join(',');
         action(newsletter)
@@ -64,16 +63,13 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
 
             <div className="newsletter-preview">
                 <ul>
-                    {storyList.map( story => {
-
-                       return <li key={story}>
-                                <StoryView story={stories[story]} type="newsletter"/>
-                       </li> }
-                    )}
+                    {storyList.map( story => <li key={story} dangerouslySetInnerHTML={{__html: stories[story].html}}></li>)}
                 </ul>
             </div>
-
-            <button onClick={save}>Save</button>
+            <div className="buttons">
+                <button onClick={() => history.goBack()}>Cancel</button>
+                <button onClick={save}>Save</button>
+            </div>
         </div>
     )
 }
