@@ -25,7 +25,7 @@ function StoriesIndex({stories}) {
 
 const mSTP = state => {
     return({
-        stories: Object.values(state.entities.stories)
+        stories: Object.values(state.entities.stories).sort((a,b) => a.updated_at > b.updated_at ? -1 : 1)
     })
 }
 

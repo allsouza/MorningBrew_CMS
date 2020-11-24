@@ -39,7 +39,7 @@ function StoryEditor({story, action, fetchStory}) {
             </label>
             <Editor body={body} setBody={setBody} setWordCount={setWordCount}/>
             <div className="footer">
-                {wordCount > 0 ? <span>{`${wordCount} words and counting`}</span> : null}
+                {wordCount > 1 ? <span>{`${wordCount} words and counting`}</span> : null}
             </div>
             <div className="buttons">
                 <button onClick={history.goBack}>Cancel</button>

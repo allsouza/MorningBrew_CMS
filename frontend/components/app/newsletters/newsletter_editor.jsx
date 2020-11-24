@@ -48,7 +48,7 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
 
             <label>Stories to include
                 <ul className="stories-list">
-                    {Object.values(stories).map(story => {
+                    {Object.values(stories).sort((a,b) => a.updated_at > b.updated_at ? -1 : 1).map(story => {
                         return <li  id={story.id}
                                     key={story.id}                        
                                     className={selectedStories.has(story.id) ? "selected" : ""}
@@ -63,7 +63,13 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
 
             <div className="newsletter-preview">
                 <ul>
-                    {storyList.map( story => <li key={story} dangerouslySetInnerHTML={{__html: stories[story].html}}></li>)}
+                    <h1>MorningBrew ({date})</h1>
+                    {storyList.map( story => {
+                        return (<li key={story} 
+                            dangerouslySetInnerHTML={{__html: stories[story].html}}
+                            style={{padding: '20px 0', borderBottom: '1px solid black', listStyle: 'none'}}></li>)
+                        }
+                    )}
                 </ul>
             </div>
             <div className="buttons">

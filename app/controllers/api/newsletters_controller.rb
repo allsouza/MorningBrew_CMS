@@ -11,6 +11,7 @@ class Api::NewslettersController < ApplicationController
         @newsletter = Newsletter.new(newsletter_params)
         @newsletter.author_id = current_user.id
         if @newsletter.save
+            @newsletter.createAPI
             render :show
         else
             render json: @newsletter.errors.full_messages, status: 422
@@ -20,6 +21,7 @@ class Api::NewslettersController < ApplicationController
     def update
         @newsletter = Newsletter.find(params[:id])
         if @newsletter.update(newsletter_params)
+            @newsletter.updateAPI
             render :show
         else
             render json: @newsletter.errors.full_messages, status: 422
@@ -29,6 +31,7 @@ class Api::NewslettersController < ApplicationController
     def destroy
         @newsletter = Newsletter.find(params[:id])
         if @newsletter
+            @newsletter.deleteAPI
             @newsletter.destroy
             render json: {success: "newsletter destroyed"}, status: 200
         else
