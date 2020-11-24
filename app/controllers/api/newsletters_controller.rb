@@ -38,6 +38,6 @@ class Api::NewslettersController < ApplicationController
 
     private
     def newsletter_params
-        params.require(:newsletter).permit(:date, :html)
+        params.require(:newsletter).permit(:date, :html, :story_order)
     end
 end

@@ -16,7 +16,7 @@ function NewsletterIndex({newsletters, getNewsletters, createNewsletter}) {
     function create() {
         const date = new Date(Date.now())
         const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-        createNewsletter({date: dateString, html: "new"})
+        createNewsletter({date: dateString, html: "new", story_order: ""})
             .then( payload => {
                 history.push(`/app/newsletters/${payload.newsletter.id}`)})
     }

@@ -8,7 +8,8 @@ function Login({login, errors, clearErrors}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    function tryLogin() {
+    function tryLogin(e) {
+        e.preventDefault()
         login({username, password})
     }
 
@@ -20,7 +21,7 @@ function Login({login, errors, clearErrors}) {
     
     return(
         <div className='login'>
-            <form onSubmit={tryLogin}>
+            <form onSubmit={e => tryLogin(e)}>
                 <label>Username
                     <input  type="text"
                             value={username}

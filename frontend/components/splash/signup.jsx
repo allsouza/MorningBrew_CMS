@@ -10,7 +10,8 @@ function SignUp({signUp, errors, clearErrors}) {
     const [lastName, setLastName] = useState('')
     const [password, setPassword] = useState('');
 
-    function trySignUp() {
+    function trySignUp(e) {
+        e.preventDefault()
         signUp({
             username,
             first_name: firstName,
@@ -27,7 +28,7 @@ function SignUp({signUp, errors, clearErrors}) {
 
     return(
         <div className='signup'>
-            <form onSubmit={trySignUp}>
+            <form onSubmit={e => trySignUp(e)}>
                 <label>Username
                     <input  type="text"
                             value={username}

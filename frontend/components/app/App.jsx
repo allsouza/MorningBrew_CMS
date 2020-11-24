@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Switch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { getUsers, logout } from '../../actions/user_actions';
 import { fetchStories } from '../../actions/story_actions';
 import { fetchNewsletters } from '../../actions/newsletter_actions';
@@ -24,12 +24,12 @@ function App({getUsers, getNewsletters, getStories}) {
         <div className='app'>
             <Header />
             <Switch>
-                <ProtectedRoute exact path='/app/stories' component={StoriesIndex} />
-                <ProtectedRoute exact path='/app/stories/new' component={NewStory} />
-                <ProtectedRoute exact path='/app/stories/:story_id' component={EditStory} />
-                <ProtectedRoute exact path='/app/stories/:story_id/template' component={StoryView} />
-                <ProtectedRoute exact path='/app/newsletters' component={NewsletterIndex} />
-                <ProtectedRoute exact path='/app/newsletters/:newsletter_id' component={NewsletterEditor} />
+                <Route exact path='/app/stories' component={StoriesIndex} />
+                <Route exact path='/app/stories/new' component={NewStory} />
+                <Route exact path='/app/stories/:story_id' component={EditStory} />
+                <Route exact path='/app/stories/:story_id/template' component={StoryView} />
+                <Route exact path='/app/newsletters' component={NewsletterIndex} />
+                <Route exact path='/app/newsletters/:newsletter_id' component={NewsletterEditor} />
             </Switch>
         </div>
     )

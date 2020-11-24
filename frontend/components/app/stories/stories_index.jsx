@@ -11,14 +11,14 @@ function StoriesIndex({stories, fetchStories}) {
         fetchStories()
     }, [])
 
-    function newNote() {
+    function newStory() {
         history.push('/app/stories/new')
     }
 
     return(
         <div className='stories-index'>
         <h1>Stories Index</h1>
-        <button onClick={newNote}>Create new Story</button>
+        <button onClick={newStory}>Create new Story</button>
             <ul>
                 {stories.map(story => {
                     return <StoryIndexItem story={story} key={story.id}/>

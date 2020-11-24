@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createNewsletter } from '../../../actions/newsletter_actions';
+import { updateNewsletter } from '../../../actions/newsletter_actions';
 import { createPublishing, removePublishing } from '../../../util/newsletters_api_util';
 import StoryView from '../stories/story_view';
 import StoriesOrder from './stories_order';
@@ -9,16 +9,16 @@ import StoriesOrder from './stories_order';
 function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing}) {
     const [date, setDate] = useState(newsletter.date)
     const [html, sethtml] = useState(newsletter.html)
-    const [storyList, setStoryList] = useState([])
-    const [selectedStories, setSelectedStories] = useState(new Set())
+    const [selectedStories, setSelectedStories] = useState(new Set(newsletter.story_order))
+    const [storyList, setStoryList] = useState(Array.from(selectedStories))
     const history = useHistory();
-    debugger
+    console.log(newsletter.story_order)
 
     function toggleSelect(ele) {
         ele.classList.toggle('selected')
         Array.from(ele.classList).includes('selected') ? selectedStories.add(parseInt(ele.id)) : selectedStories.delete(parseInt(ele.id))
         setSelectedStories(selectedStories)
-        setStoryList(Array.from(selectedStories).map(story => stories[story]))
+        setStoryList(Array.from(selectedStories))
     }
 
     function save() {
@@ -26,18 +26,18 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
         updatePublishings()
         newsletter.date = date;
         newsletter.html = html;
+        newsletter.story_order = storyList.join(',');
         action(newsletter)
-        history.goBack()
+        history.push('/app/newsletters')
     }
 
-    function updatePublishings() {
-        const toRemove = newsletter.stories.filter(story => !selectedStories.has(story))
-        newsletter.stories.forEach(story => {
+    async function updatePublishings() {
+        const toRemove = newsletter.story_order.filter(story => !storyList.includes(story))
+        newsletter.story_order.forEach(story => {
             if(selectedStories.has(story)){
                 selectedStories.delete(story)
             } 
         })
-        debugger
         toRemove.forEach(story => removePublishing(story, newsletter.id))
         selectedStories.forEach(story => addPublishing(story, newsletter.id))
     }
@@ -52,7 +52,8 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
                 <ul className="stories-list">
                     {Object.values(stories).map(story => {
                         return <li  id={story.id}
-                                    key={story.id}
+                                    key={story.id}                        
+                                    className={selectedStories.has(story.id) ? "selected" : ""}
                                     onClick={e => toggleSelect(e.target)}>
                             {story.title}
                         </li>
@@ -65,8 +66,9 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
             <div className="newsletter-preview">
                 <ul>
                     {storyList.map( story => {
-                       return <li key={story.id}>
-                           <StoryView story={story} type="newsletter"/>
+
+                       return <li key={story}>
+                                <StoryView story={stories[story]} type="newsletter"/>
                        </li> }
                     )}
                 </ul>
@@ -84,9 +86,9 @@ const mSTP = (state, ownProps) => {
 })}
 
 const mDTP = dispatch => ({
-    action: newsletter => dispatch(createNewsletter(newsletter)),
-    addPublishing: (story_id, newsletter_id) => dispatch(createPublishing(story_id, newsletter_id)),
-    removePublishing: (story_id, newsletter_id) => dispatch(removePublishing(story_id, newsletter_id))
+    action: newsletter => dispatch(updateNewsletter(newsletter)),
+    addPublishing: (story_id, newsletter_id) => (createPublishing(story_id, newsletter_id)),
+    removePublishing: (story_id, newsletter_id) => (removePublishing(story_id, newsletter_id))
 })
 
 export default connect(mSTP, mDTP)(NewsletterEditor)

@@ -4,7 +4,7 @@ import Reorder, { reorder, reorderImmutable, reorderFromTo, reorderFromToImmutab
 export default class StoriesOrder extends React.Component {
     constructor(props){
         super(props)
-        this.state = {myList: Object.keys(props.stories)}
+        this.state = {myList: props.stories}
     }
 
     componentDidUpdate(prevProps){
@@ -68,8 +68,8 @@ export default class StoriesOrder extends React.Component {
                 >
                 {this.state.myList.map( story => {
                     return(
-                        <li key={story.id}>
-                            {story.title}
+                        <li key={story}>
+                            {this.props.allStories[story].title}
                         </li>
                     )})
                 }
