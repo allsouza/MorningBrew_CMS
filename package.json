@@ -38,8 +38,7 @@
   },
   "scripts": {
     "webpack": "webpack --mode=development --watch",
-    "postinstall": "webpack",
-    "start": "node cms.jsx"
+    "postinstall": "webpack"
   },
   "repository": {
     "type": "git",
