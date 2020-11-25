@@ -4,6 +4,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import { getUsers, logout } from '../../actions/user_actions';
 import { fetchStories } from '../../actions/story_actions';
 import { fetchNewsletters, createNewsletter } from '../../actions/newsletter_actions';
+import ReactDOMServer from 'react-dom/server';
 import Header from './header/header';
 import StoriesIndex from './stories/stories_index';
 import NewsletterIndex from './newsletters/newsletters_index';
