@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { updateNewsletter } from '../../../actions/newsletter_actions';
 import { createPublishing, removePublishing } from '../../../util/newsletters_api_util';
 import StoriesOrder from './stories_order';
-import StoryView from '../stories/story_view';
 import { fetchStories } from '../../../actions/story_actions';
 
 function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing, getStories}) {
@@ -12,7 +11,6 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
     const [selectedStories, setSelectedStories] = useState(new Set(newsletter.story_order))
     const [storyList, setStoryList] = useState(Array.from(selectedStories))
     const history = useHistory();
-    console.log(newsletter.story_order)
 
     function toggleSelect(ele) {
         ele.classList.toggle('selected')
