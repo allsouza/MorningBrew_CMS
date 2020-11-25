@@ -26,6 +26,7 @@ function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter
         }
         getData()
     }, [])
+    
 
     function newNewsletter() {
         const date = new Date(Date.now())
