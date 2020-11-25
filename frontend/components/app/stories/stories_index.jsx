@@ -12,7 +12,7 @@ function StoriesIndex({stories}) {
 
     return(
         <div className='stories-index'>
-        <h1>Stories Index</h1>
+        <h1>Stories</h1>
         <button onClick={newStory}>Create new Story</button>
             <ul>
                 {stories.map(story => {
