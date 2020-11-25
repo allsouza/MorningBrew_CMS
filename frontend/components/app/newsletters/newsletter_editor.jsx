@@ -64,6 +64,11 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
                 
                 <StoriesOrder stories={storyList} save={setStoryList} allStories={stories}/>
             </div>
+            
+            <div className="buttons">
+                <button onClick={() => history.goBack()}>Cancel</button>
+                <button onClick={save}>Save</button>
+            </div>
 
             <h1>Preview:</h1>
             <div className="newsletter-preview">
@@ -76,11 +81,6 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
                         }
                     )}
                 </ul>
-            </div>
-
-            <div className="buttons">
-                <button onClick={() => history.goBack()}>Cancel</button>
-                <button onClick={save}>Save</button>
             </div>
         </div>
     )
