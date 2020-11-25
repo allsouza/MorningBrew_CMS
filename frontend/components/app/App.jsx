@@ -47,7 +47,7 @@ function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter
                 </div>
                 <div className='last-issue'>
                     <h1>Latest Issue</h1>
-                    <div dangerouslySetInnerHTML={{__html: newsletter === undefined ? "No issues created yet" : newsletter.html}}></div>
+                    <div dangerouslySetInnerHTML={{__html: newsletter === undefined ? "No issues created yet" : ReactDOMServer.renderToString(<NewsletterPreview newsletter={newsletter}/>)}}></div>
                 </div>
             </div>
         )

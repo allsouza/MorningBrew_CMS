@@ -22,7 +22,7 @@ function NewsletterPreview({newsletter, stories}) {
 }
 
 const mSTP = (state, ownProps) => ({
-    newsletter: state.entities.newsletters[ownProps.match.params.newsletter_id],
+    newsletter: ownProps.newsletter === undefined ? state.entities.newsletters[ownProps.match.params.newsletter_id] : ownProps.newsletter,
     stories: state.entities.stories
 })
 
