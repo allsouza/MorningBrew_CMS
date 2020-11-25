@@ -44,25 +44,30 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
 
     return(
         <div className="newsletter-editor">
-            <label>Issue date
+            <div>
+                <h1>Issue date</h1>
                 <input type="date" value={date} onChange={e => setDate(e.target.value)} />
-            </label>
+            </div>
+            <div className='top'>
+                    
+                <div className="left">
+                    <h2>Stories to include</h2>
+                    <ul className="stories-list">
+                        {Object.values(stories).sort((a,b) => a.updated_at > b.updated_at ? -1 : 1).map(story => {
+                            return <li  id={story.id}
+                                        key={story.id}                        
+                                        className={selectedStories.has(story.id) ? "selected" : ""}
+                                        onClick={e => toggleSelect(e.target)}>
+                                {story.title}
+                            </li>
+                        })}
+                    </ul>
+                </div>
+                
+                <StoriesOrder stories={storyList} save={setStoryList} allStories={stories}/>
+            </div>
 
-            <label>Stories to include
-                <ul className="stories-list">
-                    {Object.values(stories).sort((a,b) => a.updated_at > b.updated_at ? -1 : 1).map(story => {
-                        return <li  id={story.id}
-                                    key={story.id}                        
-                                    className={selectedStories.has(story.id) ? "selected" : ""}
-                                    onClick={e => toggleSelect(e.target)}>
-                            {story.title}
-                        </li>
-                    })}
-                </ul>
-            </label>
-
-            <StoriesOrder stories={storyList} save={setStoryList} allStories={stories}/>
-
+            <h1>Preview:</h1>
             <div className="newsletter-preview">
                 <ul>
                     <h1>MorningBrew ({date})</h1>
@@ -74,6 +79,7 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
                     )}
                 </ul>
             </div>
+
             <div className="buttons">
                 <button onClick={() => history.goBack()}>Cancel</button>
                 <button onClick={save}>Save</button>

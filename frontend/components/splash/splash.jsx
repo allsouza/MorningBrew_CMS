@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Footer from '../app/footer/footer';
 import Login from './login';
 import SignUp from './signup';
 
@@ -12,6 +13,7 @@ export default function Splash() {
                 <Route exact path='/' component={Login} />
                 <Route path='/sign_up' component={SignUp} />
             </Switch> 
+            <Footer/>
         </div>
     )
 }

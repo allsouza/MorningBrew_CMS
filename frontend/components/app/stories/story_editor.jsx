@@ -30,13 +30,17 @@ function StoryEditor({story, action, fetchStory}) {
 
     return(
         <div className="story-editor">
-            <label>Title
-            <input type="text" value={title} onChange={e => setTitle(e.target.value)}/>
-            </label>
-
-            <label>Tag
-            <input type="text" value={tag} onChange={e => setTag(e.target.value)}/>
-            </label>
+            <div className="first-line">
+                <div>
+                    <label>Title</label>
+                    <input type="text" value={title} onChange={e => setTitle(e.target.value)}/>
+                </div>
+                <div>
+                    <label>Tag</label>
+                    <input type="text" value={tag} onChange={e => setTag(e.target.value)}/>
+                </div>
+            </div>
+  
             <Editor body={body} setBody={setBody} setWordCount={setWordCount}/>
             <div className="footer">
                 {wordCount > 1 ? <span>{`${wordCount} words and counting`}</span> : null}

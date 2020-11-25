@@ -43,4 +43,15 @@
             }
         }
     }
+
+    .footer{
+        position: absolute;
+        bottom: 0;
+        transform: translateY(-50%);
+         p{
+             font-style: italic;
+             color: rgb(78, 78, 78);
+             text-align: center;
+         }
+     }
 }

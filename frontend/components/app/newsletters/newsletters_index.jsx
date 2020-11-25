@@ -30,7 +30,7 @@ function NewsletterIndex({newsletters, createNewsletter}) {
 }
 
 const mSTP = state => ({
-    newsletters: Object.values(state.entities.newsletters)
+    newsletters: Object.values(state.entities.newsletters).sort((a,b) => a.date > b.date ? -1 : 1)
 })
 
 const mDTP = dispatch => ({

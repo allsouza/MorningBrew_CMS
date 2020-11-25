@@ -35,7 +35,6 @@ class Story < ApplicationRecord
 
     def updateAPI
         resp = Faraday.patch("https://lyra-api.herokuapp.com/api/stories/#{self.lyra_key}") do |req|
-            debugger
             req.headers['Authorization'] = Figaro.env.lyra_key
             req.body = {html: self.html, title: self.title}
         end

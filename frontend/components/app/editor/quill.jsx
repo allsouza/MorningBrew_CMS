@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import 'quill/dist/quill.snow.css';
+// import 'quill/dist/quill.snow.css';
 import { useQuill } from 'react-quilljs';
 
 export default ({body, setBody,setWordCount}) => {

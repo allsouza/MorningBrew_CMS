@@ -1,0 +1,59 @@
+.story-editor{
+    display: flex;
+    flex-direction: column;
+
+    .first-line{
+        display: flex;
+        justify-content: space-between;
+
+        div{
+            display: flex;
+            justify-content: flex-end;
+            align-items: baseline;
+
+            label{
+                margin-right: 10px;
+            }
+        }
+        
+        div:first-of-type{
+            width: 70%;
+        }
+
+        div:last-of-type{
+            width: 200px;
+        }
+
+        input{
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 5px;
+            border: 1px solid rgb(133, 133, 133);
+            border-radius: 5px;
+            background-color: white;
+        }
+    }
+
+    .editor{
+        margin-bottom: 10px;
+        border: 1px solid rgb(133, 133, 133);
+        border-radius: 5px;
+        background-color: white;
+
+        .ql-container{
+            min-height: 500px;
+        }
+    }
+
+    .footer{
+        margin-top: 10px;
+    }
+    
+    .buttons{
+        align-self: flex-end;
+        button{
+            margin-left: 20px;
+            width: 80px;
+        }
+    }
+}

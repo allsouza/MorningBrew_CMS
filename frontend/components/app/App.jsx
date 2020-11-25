@@ -11,6 +11,7 @@ import { EditStory, NewStory } from './stories/story_editor';
 import StoryView from './stories/story_view';
 import NewsletterEditor from './newsletters/newsletter_editor';
 import NewsletterPreview from './newsletters/newsletter_preview';
+import Footer from './footer/footer';
 
 function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter}) {
     const [ready, setReady] = useState(false)
@@ -64,6 +65,7 @@ function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter
                 <Route exact path='/app/newsletters/:newsletter_id/preview' component={NewsletterPreview} />
                 <Main />
             </Switch> :null }
+            <Footer/>
         </div>
     )
 }

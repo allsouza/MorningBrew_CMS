@@ -35,14 +35,5 @@
      #root{
          display: flex;
          flex-direction: column;
-
-         .footer{
-             justify-self: flex-end;
-             p{
-                 font-style: italic;
-                 color: rgb(78, 78, 78);
-                 text-align: center;
-             }
-         }
      }
  }

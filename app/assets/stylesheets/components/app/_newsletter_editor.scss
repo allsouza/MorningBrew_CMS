@@ -1,0 +1,99 @@
+.newsletter-editor{
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: auto;
+
+    >div:first-of-type{
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 20px;
+        input{
+            margin-left: 20px;
+            width: fit-content;
+            font-size: large;
+            font-weight: 500;
+        }
+    }
+
+    .top{
+        display: flex;
+        justify-content: space-around;
+        max-height: 500px;
+        margin-bottom: 30px;
+
+        .left{
+            width: 40%;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+
+            .stories-list{
+                width: 90%;
+                li{
+                    list-style: none;
+                    padding: 10px;
+                    margin: 5px 0;
+                    background: white;
+                    user-select: none;
+                    width: 100%;
+                }
+                li:hover{
+                    cursor: pointer;
+                }
+
+                .selected{
+                    background: rgb(0, 119, 255);
+                    color: white;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .stories-order{
+            width: 40%;
+            padding: 0 20px;
+
+            p{
+                font-style: italic;
+            }
+
+            li{
+                list-style: none;
+                padding: 10px;
+                margin: 5px 0;
+                background: white;
+                cursor: grab;
+                user-select: none;
+            }
+            li:active{
+                cursor: grabbing;
+            }
+        }
+    }
+
+    .newsletter-preview{
+        background-color: rgba(255, 255, 255, 0.623);
+        border-radius: 15px;
+        border: 1px solid lightblue;
+        width: 90%;
+        margin: auto;
+        max-width: 800px;
+        padding: 10px;
+        margin-bottom: 40px;
+    }
+
+    .buttons{
+        align-self: flex-end;
+        button{
+            margin-left: 20px;
+            width: 80px;
+        }
+    }
+}
+
+.newsletter-preview{
+    button{
+        margin-top: 20px;
+    }
+}
