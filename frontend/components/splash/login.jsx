@@ -22,29 +22,27 @@ function Login({login, errors, clearErrors}) {
     return(
         <div className='login'>
             <form onSubmit={e => tryLogin(e)}>
-                <label>Username
-                    <input  type="text"
-                            value={username}
-                            onChange={e => {
-                                setUsername(e.target.value)
-                            }}
-                    />
-                </label>
+                <input  type="text"
+                        value={username}
+                        placeholder="Username"
+                        onChange={e => {
+                            setUsername(e.target.value)
+                        }}
+                />
 
-                <label>Password
-                    <input  type="password"
-                            value={password}
-                            onChange={e => {
-                                setPassword(e.target.value)
-                            }}
-                    />
-                </label>
-
+                <input  type="password"
+                        value={password}
+                        placeholder="Password"
+                        onChange={e => {
+                            setPassword(e.target.value)
+                        }}
+                />
+                
                 <div className="errors">
                     {errors.length > 0 ? <ul> {errors.map(error => <li key={error}>{error}</li> )} </ul> : null }
                 </div>
 
-                <input type="submit" value="Login"/>
+                <button>Login</button>
             </form>
             <Link to='/sign_up'>Create an account</Link>
         </div>

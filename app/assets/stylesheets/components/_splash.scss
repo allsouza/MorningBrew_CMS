@@ -1,0 +1,46 @@
+.splash{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+
+    h1{
+        margin-bottom: 40px;
+    }
+
+    .login, .signup{
+        text-align: center;
+        
+        form{
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 20px;
+
+            input{
+                margin-bottom: 10px;
+                text-align: center;
+                padding: 5px;
+                border: 1px solid rgb(133, 133, 133);
+                border-radius: 5px;
+                background-color: white;
+            }
+
+            .errors{
+                margin-bottom: 5px;
+                li{
+                    font-style: italic;
+                    font-size: 14px;
+                    color: darkred;
+                }
+            }
+
+            button{
+                padding: 5px;
+            }
+        }
+    }
+}

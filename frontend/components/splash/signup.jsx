@@ -29,47 +29,43 @@ function SignUp({signUp, errors, clearErrors}) {
     return(
         <div className='signup'>
             <form onSubmit={e => trySignUp(e)}>
-                <label>Username
-                    <input  type="text"
-                            value={username}
-                            onChange={e => {
-                                setUsername(e.target.value)
-                            }}
-                    />
-                </label>
+                <input  type="text"
+                        value={username}
+                        placeholder="Username"
+                        onChange={e => {
+                            setUsername(e.target.value)
+                        }}
+                />
 
-                <label>First Name
-                    <input  type="text"
-                            value={firstName}
-                            onChange={e => {
-                                setFirstName(e.target.value)
-                            }}
-                    />
-                </label>
+                <input  type="text"
+                        value={firstName}
+                        placeholder="First Name"
+                        onChange={e => {
+                            setFirstName(e.target.value)
+                        }}
+                />
 
-                <label>Last Name
-                    <input  type="text"
-                            value={lastName}
-                            onChange={e => {
-                                setLastName(e.target.value)
-                            }}
-                    />
-                </label>
+                <input  type="text"
+                        value={lastName}
+                        placeholder="Last name"
+                        onChange={e => {
+                            setLastName(e.target.value)
+                        }}
+                />
 
-                <label>Password
-                    <input  type="password"
-                            value={password}
-                            onChange={e => {
-                                setPassword(e.target.value)
-                            }}
-                    />
-                </label>
+                <input  type="password"
+                        value={password}
+                        placeholder="Password"
+                        onChange={e => {
+                            setPassword(e.target.value)
+                        }}
+                />
 
                 <div className="errors">
                     {errors.length > 0 ? <ul> {errors.map(error => <li key={error}>{error}</li> )} </ul> : null }
                 </div>
 
-                <input type="submit" value="Sign Up"/>
+                <button>Sign Up</button>
             </form>
             <Link to='/'>Already have an account</Link>
         </div>
