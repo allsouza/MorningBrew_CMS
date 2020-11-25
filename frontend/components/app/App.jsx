@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import { getUsers, logout } from '../../actions/user_actions';
 import { fetchStories } from '../../actions/story_actions';
-import { fetchNewsletters } from '../../actions/newsletter_actions';
+import { fetchNewsletters, createNewsletter } from '../../actions/newsletter_actions';
 import Header from './header/header';
 import StoriesIndex from './stories/stories_index';
 import NewsletterIndex from './newsletters/newsletters_index';
@@ -12,8 +12,9 @@ import StoryView from './stories/story_view';
 import NewsletterEditor from './newsletters/newsletter_editor';
 import NewsletterPreview from './newsletters/newsletter_preview';
 
-function App({getUsers, getNewsletters, getStories}) {
+function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter}) {
     const [ready, setReady] = useState(false)
+    const history = useHistory();
 
     useEffect(() => {
         async function getData() {
@@ -24,6 +25,31 @@ function App({getUsers, getNewsletters, getStories}) {
         }
         getData()
     }, [])
+
+    function newNewsletter() {
+        const date = new Date(Date.now())
+        const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+        createNewsletter({date: dateString, html: "new", story_order: ""})
+            .then( payload => {
+                history.push(`/app/newsletters/${payload.newsletter.id}`)})
+    }
+
+    function Main() {
+        return(
+            <div className="main">
+                <h2>Today is {new Date(Date.now()).toDateString()}</h2>
+                <h1>Let's get to work!</h1>
+                <div className='options'>
+                    <button onClick={() => history.push('/app/stories/new')}>Create a new Story</button>
+                    <button onClick={newNewsletter}>Create a new Newsletter</button>
+                </div>
+                <div className='last-issue'>
+                    <h1>Latest Issue</h1>
+                    <div dangerouslySetInnerHTML={{__html: newsletter.html}}></div>
+                </div>
+            </div>
+        )
+    }
 
     return(
         <div className='app'>
@@ -36,20 +62,23 @@ function App({getUsers, getNewsletters, getStories}) {
                 <Route exact path='/app/newsletters' component={NewsletterIndex} />
                 <Route exact path='/app/newsletters/:newsletter_id' component={NewsletterEditor} />
                 <Route exact path='/app/newsletters/:newsletter_id/preview' component={NewsletterPreview} />
+                <Main />
             </Switch> :null }
         </div>
     )
 }
 
 const mSTP = state => ({
-    currentUser: state.entities.users[state.session.id]
+    currentUser: state.entities.users[state.session.id],
+    newsletter: Object.values(state.entities.newsletters).sort((a,b) => a.date > b.date ? -1 : 1)[0]
 })
 
 const mDTP = dispatch => ({
     logout: () => dispatch(logout()),
     getUsers: () => dispatch(getUsers()),
     getStories: () => dispatch(fetchStories()),
-    getNewsletters: () => dispatch(fetchNewsletters())
+    getNewsletters: () => dispatch(fetchNewsletters()),
+    createNewsletter: newsletter => dispatch(createNewsletter(newsletter))
 })
 
 export default connect(mSTP, mDTP)(App);

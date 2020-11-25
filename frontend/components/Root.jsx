@@ -13,6 +13,9 @@ export default function Root({store}) {
                     <ProtectedRoute path='/app' component={App} />
                     <AuthRoute path='/' component={Splash} />
                 </Switch>
+                <div className='footer'>
+                    <p>Built by Andre Souza as part of the Morning Brew interview process</p>
+                </div>
             </HashRouter>
         </Provider>
     )

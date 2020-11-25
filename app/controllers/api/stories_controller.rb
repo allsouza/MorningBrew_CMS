@@ -1,6 +1,6 @@
 class Api::StoriesController < ApplicationController
     def index
-        @stories = Story.all
+        @stories = Story.all.includes(:newsletters)
     end
 
     def show

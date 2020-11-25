@@ -1,12 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { logout } from '../../../actions/user_actions'
 
 function Header({user, logout}) {
+    const history = useHistory();
+
     return(
         <div className='header'>
-            <div className='left'>
-                <h1>MorningBrew</h1>
+            <div className='left'
+                onClick={() => history.push('/app')}>
+                <img src="https://morningbrew-oslo.s3.us-west-2.amazonaws.com/1582323261.jpg" alt="" />
             </div>
             <div className="center">
                 <nav>

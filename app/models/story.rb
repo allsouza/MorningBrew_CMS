@@ -20,6 +20,10 @@ class Story < ApplicationRecord
     has_many :publishings,
         dependent: :destroy
 
+    has_many :newsletters,
+        through: :publishings,
+        source: :newsletter
+
     def createAPI
         resp = Faraday.post('https://lyra-api.herokuapp.com/api/stories') do |req|
             req.headers['Authorization'] = Figaro.env.lyra_key

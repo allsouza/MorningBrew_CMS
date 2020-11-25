@@ -5,8 +5,9 @@ import { updateNewsletter } from '../../../actions/newsletter_actions';
 import { createPublishing, removePublishing } from '../../../util/newsletters_api_util';
 import StoriesOrder from './stories_order';
 import StoryView from '../stories/story_view';
+import { fetchStories } from '../../../actions/story_actions';
 
-function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing}) {
+function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing, getStories}) {
     const [date, setDate] = useState(newsletter.date)
     const [selectedStories, setSelectedStories] = useState(new Set(newsletter.story_order))
     const [storyList, setStoryList] = useState(Array.from(selectedStories))
@@ -26,6 +27,7 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
         newsletter.html = document.querySelector('.newsletter-preview').innerHTML;
         newsletter.story_order = storyList.join(',');
         action(newsletter)
+        getStories()
         history.push('/app/newsletters')
     }
 
@@ -89,7 +91,8 @@ const mSTP = (state, ownProps) => {
 const mDTP = dispatch => ({
     action: newsletter => dispatch(updateNewsletter(newsletter)),
     addPublishing: (story_id, newsletter_id) => (createPublishing(story_id, newsletter_id)),
-    removePublishing: (story_id, newsletter_id) => (removePublishing(story_id, newsletter_id))
+    removePublishing: (story_id, newsletter_id) => (removePublishing(story_id, newsletter_id)),
+    getStories: () => dispatch(fetchStories())
 })
 
 export default connect(mSTP, mDTP)(NewsletterEditor)
