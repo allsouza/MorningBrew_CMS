@@ -27,7 +27,7 @@ const mSTP = (state, ownProps) => {
     return({
         author: state.entities.users[ownProps.newsletter.author_id],
         newsletter: ownProps.newsletter,
-        edit: ownProps.newsletter.author_id === state.session.id
+        edit: ownProps.newsletter.author_id === state.session.id || state.entities.users[state.session.id].username === 'admin'
     })
 }
 

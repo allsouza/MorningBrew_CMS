@@ -50,6 +50,7 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
                     
                 <div className="left">
                     <h2>Stories to include</h2>
+                    <p>Click to select stories to be included in this issue.</p>
                     <ul className="stories-list">
                         {Object.values(stories).sort((a,b) => a.updated_at > b.updated_at ? -1 : 1).map(story => {
                             return <li  id={story.id}

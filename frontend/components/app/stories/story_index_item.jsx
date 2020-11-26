@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { fetchNewsletters } from '../../../actions/newsletter_actions';
 import { destroyStory } from '../../../actions/story_actions';
 
-function StoryIndexItem({story, author, destroy, currentUser, newsletters, getNewsletters}) {
+function StoryIndexItem({story, author, destroy, edit, newsletters, getNewsletters}) {
     const history = useHistory();
 
     async function deleteStory() {
@@ -26,7 +26,7 @@ function StoryIndexItem({story, author, destroy, currentUser, newsletters, getNe
             
             <div className='buttons'>
                 <button onClick={() => history.push(`/app/stories/${story.id}/preview`)}>Preview</button>
-                { story.author_id === currentUser ? <div className="options">
+                { edit ? <div className="options">
                     <button onClick={() => history.push(`/app/stories/${story.id}`)}>Edit</button>
                     <button onClick={deleteStory}>Delete</button>
                 </div> : null }
@@ -40,7 +40,7 @@ const mSTP = (state, ownProps) => {
         author: state.entities.users[ownProps.story.author_id],
         story: ownProps.story,
         newsletters: state.entities.newsletters,
-        currentUser: state.session.id
+        edit: ownProps.story.author_id === state.session.id || state.entities.users[state.session.id].username === 'admin'
     })
 }
 
