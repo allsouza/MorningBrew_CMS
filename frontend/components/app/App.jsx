@@ -40,8 +40,8 @@ function App({getUsers, getNewsletters, getStories, newsletter, createNewsletter
     function Main() {
         return(
             <div className="main">
-                <h2>Today is {new Date(Date.now()).toDateString()}</h2>
-                <h1>Let's get to work!</h1>
+                <h2>Let's get to work!</h2>
+                <h1>Today is {new Date(Date.now()).toDateString()}</h1>
                 <div className='options'>
                     <button onClick={() => history.push('/app/stories/new')}>Create a new Story</button>
                     <button onClick={newNewsletter}>Create a new Newsletter</button>
