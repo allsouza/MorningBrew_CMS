@@ -35,7 +35,8 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
     }
 
     function cancel() {
-        if(storyList.length === 0) destroy()
+        debugger
+        if(storyList.length === 0 || newsletter.story_order.length === 0) destroy()
         history.push('/app/newsletters')
     }
     async function updatePublishings() {
