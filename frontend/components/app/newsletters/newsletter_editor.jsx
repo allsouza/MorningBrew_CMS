@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { updateNewsletter } from '../../../actions/newsletter_actions';
+import { updateNewsletter, destroyNewsletter } from '../../../actions/newsletter_actions';
 import { createPublishing, removePublishing } from '../../../util/newsletters_api_util';
 import StoriesOrder from './stories_order';
 import { fetchStories } from '../../../actions/story_actions';
 
-function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing, getStories}) {
+function NewsletterEditor({newsletter, stories, action, removePublishing, addPublishing, getStories, destroyNewsletter}) {
     const [date, setDate] = useState(newsletter.date)
     const [selectedStories, setSelectedStories] = useState(new Set(newsletter.story_order))
     const [storyList, setStoryList] = useState(Array.from(selectedStories))
@@ -29,6 +29,15 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
         history.push('/app/newsletters')
     }
 
+    function destroy() {
+        destroyNewsletter(newsletter.id)
+        history.push('/app/newsletters')
+    }
+
+    function cancel() {
+        if(storyList.length === 0) destroy()
+        history.push('/app/newsletters')
+    }
     async function updatePublishings() {
         const toRemove = newsletter.story_order.filter(story => !storyList.includes(story))
         newsletter.story_order.forEach(story => {
@@ -39,6 +48,7 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
         toRemove.forEach(story => removePublishing(story, newsletter.id))
         selectedStories.forEach(story => addPublishing(story, newsletter.id))
     }
+
 
     return(
         <div className="newsletter-editor">
@@ -67,7 +77,8 @@ function NewsletterEditor({newsletter, stories, action, removePublishing, addPub
             </div>
             
             <div className="buttons">
-                <button onClick={() => history.goBack()}>Cancel</button>
+                <button onClick={cancel}>Cancel</button>
+                <button onClick={destroy}>Delete</button>
                 <button onClick={save}>Save</button>
             </div>
 
@@ -97,7 +108,8 @@ const mDTP = dispatch => ({
     action: newsletter => dispatch(updateNewsletter(newsletter)),
     addPublishing: (story_id, newsletter_id) => (createPublishing(story_id, newsletter_id)),
     removePublishing: (story_id, newsletter_id) => (removePublishing(story_id, newsletter_id)),
-    getStories: () => dispatch(fetchStories())
+    getStories: () => dispatch(fetchStories()),
+    destroyNewsletter: id => dispatch(destroyNewsletter(id))
 })
 
 export default connect(mSTP, mDTP)(NewsletterEditor)
