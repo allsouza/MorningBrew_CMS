@@ -2,9 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { destroyNewsletter } from '../../../actions/newsletter_actions';
+import { fetchStories } from '../../../actions/story_actions';
 
-function NewsletterIndexItem({newsletter, author, destroy, edit}) {
+function NewsletterIndexItem({newsletter, author, destroy, edit, updateStories}) {
     const history = useHistory();
+
+    async function deleteNewsletter() {
+        await destroy(newsletter.id)
+        updateStories()
+    }
 
     return(
         <li>
@@ -15,7 +21,7 @@ function NewsletterIndexItem({newsletter, author, destroy, edit}) {
                 <button onClick={() => history.push(`/app/newsletters/${newsletter.id}/preview`)}>Preview</button>
                 {edit ? <div className='options'>
                     <button onClick={() => history.push(`/app/newsletters/${newsletter.id}`)}>Edit</button>
-                    <button onClick={() => destroy(newsletter.id)}>Delete</button>
+                    <button onClick={deleteNewsletter}>Delete</button>
                 </div> : null }
                 
             </div>
@@ -32,7 +38,8 @@ const mSTP = (state, ownProps) => {
 }
 
 const mDTP = dispatch => ({
-    destroy: id => dispatch(destroyNewsletter(id))
+    destroy: id => dispatch(destroyNewsletter(id)),
+    updateStories: () => dispatch(fetchStories())
 })
 
 export default connect(mSTP, mDTP)(NewsletterIndexItem);

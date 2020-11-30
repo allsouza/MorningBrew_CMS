@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { connect, Provider } from 'react-redux'
 import { updateStory, createStory, fetchStory } from '../../../actions/story_actions'
-import ReactDOMServer from 'react-dom/server';
 import Editor from '../editor/quill';
 import Formater from './story_formater';
-const juice = require('juice');
+const computedStyleToInlineStyle = require("computed-style-to-inline-style");
 
 function StoryEditor({story, action, fetchStory}) {
     if(typeof story === 'number') {
@@ -18,12 +17,16 @@ function StoryEditor({story, action, fetchStory}) {
     const [wordCount, setWordCount] = useState(0)
     const history = useHistory();
 
-
     function save() {
+        computedStyleToInlineStyle(document.querySelector('.story-view'), {
+            recursive: true,
+            properties: ["font-size", "text-decoration", "border-collapse", "table-layout", "margin", "padding", "border", "width", "max-width", "padding-top", "padding-bottom", "padding-right", "padding-left", "text-align", "font-family", "font-weight", "color", "margin-bottom", "margin-top", "margin-right", "margin-left", "letter-spacing", "line-height", "background-color", "display", "border-radius", "height"]
+        });
         story.title = title;
         story.body = body;
         story.tag = tag;
-        story.html = ReactDOMServer.renderToString(<Formater story={{tag, title, body}} type="editor" />)
+        story.html = document.querySelector('.story-view').innerHTML
+        debugger
         action(story)
         history.push('/app/stories')
     }
@@ -48,6 +51,10 @@ function StoryEditor({story, action, fetchStory}) {
             <div className="buttons">
                 <button onClick={history.goBack}>Cancel</button>
                 <button onClick={save}>Save</button>
+            </div>
+
+            <div id="preview" style={{visibility:"hidden"}}>
+                <Formater story={{tag, title, body}} type="editor" />
             </div>
         </div>
     )

@@ -8,6 +8,7 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.12.5",
     "babel-loader": "^8.1.0",
+    "computed-style-to-inline-style": "^3.0.0",
     "juice": "^7.0.0",
     "quill": "^1.3.7",
     "react": "^16.13.1",
