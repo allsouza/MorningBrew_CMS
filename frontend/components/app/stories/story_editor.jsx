@@ -26,7 +26,6 @@ function StoryEditor({story, action, fetchStory}) {
         story.body = body;
         story.tag = tag;
         story.html = document.querySelector('.story-view').innerHTML
-        debugger
         action(story)
         history.push('/app/stories')
     }
