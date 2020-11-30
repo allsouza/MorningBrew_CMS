@@ -83,8 +83,8 @@
             background-color: rgba(255, 255, 255, 0.623);
             border-radius: 15px;
             border: 1px solid lightblue;
-            width: 90%;
-            max-width: 800px;
+            width: fit-content;
+            min-width: 85%;
             padding: 10px;
             margin-bottom: 40px;
         }

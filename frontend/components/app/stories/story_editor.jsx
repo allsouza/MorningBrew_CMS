@@ -52,7 +52,7 @@ function StoryEditor({story, action, fetchStory}) {
                 <button onClick={save}>Save</button>
             </div>
 
-            <div id="preview" style={{visibility:"hidden"}}>
+            <div id="preview" style={{visibility:"visible"}}>
                 <Formater story={{tag, title, body}} type="editor" />
             </div>
         </div>

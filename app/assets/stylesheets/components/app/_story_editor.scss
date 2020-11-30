@@ -56,4 +56,14 @@
             width: 80px;
         }
     }
+
+    #preview{
+        .body-copy{
+            div{
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
 }
